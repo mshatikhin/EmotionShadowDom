@@ -1,21 +1,25 @@
-import React, { FC, PropsWithChildren, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import root from "react-shadow";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import createEmotion, { Emotion } from "@emotion/css/create-instance";
 
 // Define custom location to insert Emotion styles (instead of document head)
 // From: https://emotion.sh/docs/cache-provider
 
-const ShadowDomContainer: FC<PropsWithChildren> = ({ children }) => {
-  const [emotionCache, setEmotionCache] = useState<any | null>(null);
+const ShadowDomContainer = ({
+  children,
+}: {
+  children: (emotion: Emotion) => ReactNode;
+}) => {
+  const [emotion, setEmotion] = useState<any | null>(null);
 
   function setEmotionStyles(ref: HTMLDivElement) {
-    if (ref && !emotionCache) {
-      const createdEmotionWithRef = createCache({
-        container: ref,
-      });
-      console.log(createdEmotionWithRef);
-      setEmotionCache(createdEmotionWithRef);
+    if (ref && !emotion) {
+      setEmotion(
+        createEmotion({
+          key: "emotion-style-container",
+          container: ref,
+        }),
+      );
     }
   }
 
@@ -25,10 +29,8 @@ const ShadowDomContainer: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <root.div>
-      <div data-name="emotion-style-container" ref={setShadowRefs} />
-      {emotionCache && (
-        <CacheProvider value={emotionCache}>{children}</CacheProvider>
-      )}
+      <div data-key="emotion-style-container" ref={setShadowRefs} />
+      {emotion && children(emotion)}
     </root.div>
   );
 };
