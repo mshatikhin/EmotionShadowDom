@@ -8,7 +8,8 @@
     "@emotion/css": "^11.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-shadow": "20.4.0"
+    "react-shadow": "20.4.0",
+    "@skbkontur/react-ui": "0.0.0-95a1dbe516"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,7 +1,12 @@
 import { render } from "react-dom";
-import ShadowDomContainer from "./ShadowDomContainer";
+import {
+  ShadowDomContainer,
+  EmotionShadowDomContainer,
+} from "./ShadowDomContainer";
 import { css } from "@emotion/css";
 import { Emotion } from "@emotion/css/create-instance";
+import { Button } from "@skbkontur/react-ui";
+import { StyleContainer } from "@skbkontur/react-ui/lib/theming/StyleContainer";
 
 function App() {
   return (
@@ -24,7 +29,7 @@ function App() {
         Just a regular component outside of any Shadow DOMs
       </div>
       {/* One component inside a shadow Dom: */}
-      <ShadowDomContainer>
+      <EmotionShadowDomContainer>
         {(emotion: Emotion) => (
           <div
             className={emotion.css`
@@ -37,9 +42,9 @@ function App() {
             I am styled in shadow DOM
           </div>
         )}
-      </ShadowDomContainer>
+      </EmotionShadowDomContainer>
       {/* Another component inside a shadow Dom: */}
-      <ShadowDomContainer>
+      <EmotionShadowDomContainer>
         {(emotion: Emotion) => (
           <div
             className={emotion.css`
@@ -52,8 +57,17 @@ function App() {
             I am also styled in shadow DOM
           </div>
         )}
+      </EmotionShadowDomContainer>
+      <Button>React UI without containers</Button>
+      <ShadowDomContainer>
+        <Button>React UI without style container</Button>
       </ShadowDomContainer>
-      Regular text outside shadow DOM.
+      <ShadowDomContainer>
+        <StyleContainer>
+          <Button>React UI with style container</Button>
+        </StyleContainer>
+      </ShadowDomContainer>
+      <div>Regular text outside shadow DOM.</div>
     </div>
   );
 }

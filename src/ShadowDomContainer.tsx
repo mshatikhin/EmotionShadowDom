@@ -5,7 +5,7 @@ import createEmotion, { Emotion } from "@emotion/css/create-instance";
 // Define custom location to insert Emotion styles (instead of document head)
 // From: https://emotion.sh/docs/cache-provider
 
-const ShadowDomContainer = ({
+export const EmotionShadowDomContainer = ({
   children,
 }: {
   children: (emotion: Emotion) => ReactNode;
@@ -35,4 +35,6 @@ const ShadowDomContainer = ({
   );
 };
 
-export default ShadowDomContainer;
+export const ShadowDomContainer = ({ children }: { children: ReactNode }) => (
+  <root.div>{children}</root.div>
+);
